@@ -14,11 +14,15 @@ class Home extends React.Component {
 
     handlePressBaseCurrency() {
         console.log('handlePressBaseCurrency');
-    }
+    };
 
     handlePressQuoteCurrency() {
         console.log('handlePressQuoteCurrency');
-    }
+    };
+
+    onTextChange(text) {
+        console.log('text is changing' + text);
+    };
 
     render() {
         return (
@@ -30,6 +34,7 @@ class Home extends React.Component {
                     onPress={this.handlePressBaseCurrency}           
                     defaultValue={TEMP_BASE_PRICE}
                     keyboardType="numeric"
+                    onChangeText={this.onTextChange}
                 />
                 <InputWithButton 
                     buttonText={TEMP_QUOTE_CURRENCY}
