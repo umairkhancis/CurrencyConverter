@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, ImageBackground} from 'react-native';
-import styles from './styles'
+
+import styles from './styles';
 
 const Logo = () => (
     <View style={styles.container}>
