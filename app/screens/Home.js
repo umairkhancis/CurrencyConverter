@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, KeyboardAvoidingView } from 'react-native';
 
 import { Container } from '../components/Container';
 import { Logo } from '../components/Logo';
 import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Button';
 import { LastConverted } from '../components/Text';
+import { Header } from '../components/Header';
 
 const TEMP_BASE_CURRENCY = 'USD';
 const TEMP_QUOTE_CURRENCY = 'PKR';
@@ -25,44 +26,53 @@ class Home extends React.Component {
     };
 
     onTextChange(text) {
-        console.log('text is changing' + text);
+        console.log('onTextChange: ' + text);
     };
 
     handlerSwapCurrencies() {
-        console.log('swap currency');
+        console.log('handlerSwapCurrencies');
+    };
+
+    handleOptionsOnPress() {
+        console.log('handleOptionsOnPress');
     };
 
     render() {
         return (
             <Container>
                 <StatusBar translucent={false} barStyle="light-content"/>
-                <Logo/> 
-                <InputWithButton
-                    buttonText={TEMP_BASE_CURRENCY}
-                    onPress={this.handlePressBaseCurrency}           
-                    defaultValue={TEMP_BASE_PRICE}
-                    keyboardType="numeric"
-                    onChangeText={this.onTextChange}
+                <Header 
+                    onPress={this.handleOptionsOnPress}
                 />
-                <InputWithButton 
-                    buttonText={TEMP_QUOTE_CURRENCY}
-                    onPress={this.handlePressQuoteCurrency} 
-                    editable={false} 
-                    defaultValue={TEMP_QUOTE_PRICE}
-                    keyboardType='numeric'
-                />
+                <KeyboardAvoidingView behavior="padding">
+                    <Logo/> 
+                    <InputWithButton
+                        buttonText={TEMP_BASE_CURRENCY}
+                        onPress={this.handlePressBaseCurrency}           
+                        defaultValue={TEMP_BASE_PRICE}
+                        keyboardType="numeric"
+                        onChangeText={this.onTextChange}
+                    />
+                    <InputWithButton 
+                        buttonText={TEMP_QUOTE_CURRENCY}
+                        onPress={this.handlePressQuoteCurrency} 
+                        editable={false} 
+                        defaultValue={TEMP_QUOTE_PRICE}
+                        keyboardType='numeric'
+                    />
 
-                <LastConverted
-                    base={TEMP_BASE_CURRENCY}
-                    quote={TEMP_QUOTE_CURRENCY}
-                    conversionRate={TEMP_CONVERSION_RATE}
-                    date={TEMP_CONVERSION_DATE}
-                />
+                    <LastConverted
+                        base={TEMP_BASE_CURRENCY}
+                        quote={TEMP_QUOTE_CURRENCY}
+                        conversionRate={TEMP_CONVERSION_RATE}
+                        date={TEMP_CONVERSION_DATE}
+                    />
 
-                <ClearButton
-                    text="Reverse Currencies"
-                    onPress={this.handlerSwapCurrencies}
-                />
+                    <ClearButton
+                        text="Reverse Currencies"
+                        onPress={this.handlerSwapCurrencies}
+                    />
+                </KeyboardAvoidingView>
             </Container>
         );
     }
