@@ -60,7 +60,7 @@ class Home extends React.Component {
                 />
 
                 <ClearButton
-                    text="Reverse Curruncies"
+                    text="Reverse Currencies"
                     onPress={this.handlerSwapCurrencies}
                 />
             </Container>
