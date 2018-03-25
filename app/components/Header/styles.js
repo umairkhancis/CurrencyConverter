@@ -10,9 +10,6 @@ export default EStylesheet.create({
         '@media ios': {
             paddingTop: 40,
         },
-        '@media android': {
-            paddingTop: StatusBar.currentHeight,
-        },
     },
     button: {
         alignSelf: 'flex-end',

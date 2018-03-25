@@ -3,6 +3,8 @@ import {View, Text, Image, ImageBackground, Keyboard, Animated, Platform } from 
 
 import styles from './styles';
 
+const ANIMATION_DURATION = 250;
+
 class Logo extends React.Component {
 
     constructor(props) {
