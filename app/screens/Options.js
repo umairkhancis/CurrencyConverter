@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StatusBar, Platform} from 'react-native';
+import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 
@@ -19,7 +19,7 @@ class Options extends React.Component {
     }
 
     handleSitePress = () => {
-        this.props.navigation.navigate('Themes');
+        Linking.openURL('http://fixer.io').catch(() => alert("An error orccured."));
     }
 
     render() {
