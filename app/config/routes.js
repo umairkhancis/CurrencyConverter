@@ -3,14 +3,31 @@ import { StatusBar } from 'react-native';
 
 import Home from '../screens/Home';
 import CurrencyList from '../screens/CurrencyList';
+import Options from '../screens/Options';
+import Themes from '../screens/Themes';
 
-const Navigator = StackNavigator({
+const HomeStack = StackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
             header: () => null,
         },
     },
+    Options: {
+        screen: Options,
+        navigationOptions: {
+            headerTitle: 'Options',
+        },
+    },
+    Themes: {
+        screen: Themes, 
+        navigationOptions: {
+            headerTitle: 'Themes',
+        },
+    },
+});
+
+const CurrencyListNavigator = StackNavigator({
     CurrencyList: {
         screen: CurrencyList,
         navigationOptions: ({navigation}) => {
@@ -19,9 +36,19 @@ const Navigator = StackNavigator({
             };
         },
     },
+});
+
+const Navigator = StackNavigator({
+    Home: {
+        screen: HomeStack,
+    },
+    CurrencyList: {
+        screen: CurrencyListNavigator,
+    },
 }, {
     mode: 'modal',
     paddingTop: StatusBar.currentHeight,
+    headerMode: 'none', 
 });
 
 export default Navigator;

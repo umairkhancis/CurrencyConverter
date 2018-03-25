@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StatusBar, Platform} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 import {ListItem, Separator} from '../components/List';
 
@@ -9,12 +10,16 @@ const ICON_SIZE = 23;
 const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 
 class Options extends React.Component {
+    static propTypes = {
+        navigation: PropTypes.object,
+    };
+
     handleThemesPress = () => {
-        console.log('themes press');
+        this.props.navigation.navigate('Themes');
     }
 
     handleSitePress = () => {
-        console.log('Site press');
+        this.props.navigation.navigate('Themes');
     }
 
     render() {
@@ -23,13 +28,13 @@ class Options extends React.Component {
                 <StatusBar translucent={false} barStyle="default"/>
                 <ListItem 
                     text="Themes" 
-                    onPress={this.handleThemesPress}
+                    onPress={() => this.handleThemesPress()}
                     customIcon={<Ionicons name={`${ICON_PREFIX}-arrow-forward`} color={ICON_COLOR} size={ICON_SIZE}/>}
                 />
                 <Separator/>
                 <ListItem 
                     text="Fixer.io" 
-                    onPress={this.handleSitePress}
+                    onPress={() => this.handleSitePress()}
                     customIcon={<Ionicons name={`${ICON_PREFIX}-link`} color={ICON_COLOR} size={ICON_SIZE}/>}
                 />
             </ScrollView>

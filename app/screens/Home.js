@@ -39,7 +39,7 @@ class Home extends React.Component {
     };
 
     handleOptionsOnPress() {
-        console.log('handleOptionsOnPress');
+        this.props.navigation.navigate('Options');
     };
 
     render() {
@@ -47,7 +47,7 @@ class Home extends React.Component {
             <Container>
                 <StatusBar translucent={false} barStyle="light-content"/>
                 <Header 
-                    onPress={this.handleOptionsOnPress}
+                    onPress={() => this.handleOptionsOnPress()}
                 />
                 <KeyboardAvoidingView behavior="padding">
                     <Logo/> 
@@ -56,7 +56,7 @@ class Home extends React.Component {
                         onPress={() => this.handlePressBaseCurrency()}           
                         defaultValue={TEMP_BASE_PRICE}
                         keyboardType="numeric"
-                        onChangeText={this.onTextChange}
+                        onChangeText={() => this.onTextChange}
                     />
                     <InputWithButton 
                         buttonText={TEMP_QUOTE_CURRENCY}
@@ -75,7 +75,7 @@ class Home extends React.Component {
 
                     <ClearButton
                         text="Reverse Currencies"
-                        onPress={this.handlerSwapCurrencies}
+                        onPress={() => this.handlerSwapCurrencies()}
                     />
                 </KeyboardAvoidingView>
             </Container>
