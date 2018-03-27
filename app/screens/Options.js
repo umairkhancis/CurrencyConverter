@@ -22,8 +22,7 @@ class Options extends React.Component {
 
     handleSitePress = () => {
         Linking.openURL('htssstp://fixer.io').catch(() => 
-            // console.log('props:  ' + this.props.alertWithType)
-            this.props.alert('error', 'Sorry!', "Fixer.io cant be open right now!")
+            this.props.alert('error', 'Sorry!', "Fixer.io cant be open right now!") 
         );
     }
 
