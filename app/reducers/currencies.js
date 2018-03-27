@@ -1,4 +1,9 @@
-import { SWAP_CURRENCY, CHANGE_CURRENCY_AMOUNT, swapCurrencies, changeCurrencyAmount } from '../actions/currencies';
+import { 
+    SWAP_CURRENCY, 
+    CHANGE_CURRENCY_AMOUNT, 
+    // swapCurrencies, 
+    // changeCurrencyAmount 
+} from '../actions/currencies';
 
 const initialState = {
     baseCurrency: 'USD',
@@ -26,8 +31,8 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-console.log('initial state', initialState);
-console.log('swap currency', reducer(initialState, swapCurrencies()));
-console.log('change currency amount', reducer(initialState, changeCurrencyAmount(200)));
+// console.log('initial state', initialState);
+// console.log('swap currency', reducer(initialState, swapCurrencies()));
+// console.log('change currency amount', reducer(initialState, changeCurrencyAmount(200)));
 
 export default reducer;
