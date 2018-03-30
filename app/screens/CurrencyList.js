@@ -1,31 +1,50 @@
 import React from "react";
 import { View, Text, FlatList, StatusBar } from "react-native";
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import currencies from '../data/Currencies'
 import {ListItem, Separator} from "../components/List";
 
-const TEMP_CURRENT_CURRENCY = 'CAD'
+import {changeBaseCurrency, changeQuoteCurrency} from "../actions/currencies";
 
 class CurrencyList extends React.Component {
 
 
     static propTypes = {
         navigation: PropTypes.object,
+        dispatch: PropTypes.func,
+        baseCurrency: PropTypes.string,
+        quoteCurrency: PropTypes.string,
     };
 
-    handleItemClick = () => {
-        console.log('handle on item click');
+    handleItemClick = (currency) => {
+        const { type } = this.props.navigation.state.params;
+        
+        if(type === 'base') {
+            this.props.dispatch(changeBaseCurrency(currency));
+        } else if(type === 'quote') {
+            this.props.dispatch(changeQuoteCurrency(currency));
+        }
+        
         this.props.navigation.goBack(null);
     };
 
     getRowItem = ({ item }) => {
-        console.log("row item: " + item);
+        let comparisonCurrency = this.props.baseCurrency;
+
+        const { type } = this.props.navigation.state.params;
+        if(type === 'base') {
+            comparisonCurrency = this.props.baseCurrency;
+        } else if(type === 'quote') {
+            comparisonCurrency = this.props.quoteCurrency;
+        }
+
         return (
             <ListItem
                 text={item}
-                selected={item === TEMP_CURRENT_CURRENCY}
-                onPress={this.handleItemClick}
+                selected={item === comparisonCurrency}
+                onPress={() => this.handleItemClick(item)}
                 />
             );
     }
@@ -46,6 +65,10 @@ class CurrencyList extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    baseCurrency: state.baseCurrency,
+    quoteCurrency: state.quoteCurrency,
+});
 
 
-export default CurrencyList;
+export default connect(mapStateToProps)(CurrencyList);
