@@ -9,7 +9,7 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Button';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
-import { swapCurrencies, changeCurrencyAmount } from '../actions/currencies';
+import { swapCurrencies, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
 
 const TEMP_CONVERSION_DATE = new Date();
 
@@ -23,7 +23,7 @@ class Home extends React.Component {
         amount: PropTypes.number,
         isFetching: PropTypes.bool,
         lastConvertedDate: PropTypes.object,
-
+        primaryColor: PropTypes.string,
     };
 
     handlePressBaseCurrency = () => {
@@ -46,6 +46,10 @@ class Home extends React.Component {
         this.props.navigation.navigate('Options');
     };
 
+    componentWillMount() {
+        this.props.dispatch(getInitialConversion());
+    }
+
     render() {
         let quotePrice = (this.props.rate * this.props.amount).toFixed(2);
         if(this.props.isFetching) {
@@ -53,19 +57,20 @@ class Home extends React.Component {
         }
 
         return (
-            <Container>
+            <Container backgroundColor={this.props.primaryColor}>
                 <StatusBar translucent={false} barStyle="light-content"/>
                 <Header 
                     onPress={this.handleOptionsOnPress}
                 />
                 <KeyboardAvoidingView behavior="padding">
-                    <Logo/> 
+                    <Logo tintColor={this.props.primaryColor}/> 
                     <InputWithButton
                         buttonText={this.props.baseCurrency}
                         onPress={this.handlePressBaseCurrency}           
                         defaultValue={this.props.amount.toString()}
                         keyboardType="numeric"
                         onChangeText={this.handleTextChange}
+                        textColor={this.props.primaryColor}
                     />
                     <InputWithButton 
                         buttonText={this.props.quoteCurrency}
@@ -73,6 +78,7 @@ class Home extends React.Component {
                         editable={false} 
                         defaultValue={quotePrice}
                         keyboardType='numeric'
+                        textColor={this.props.primaryColor}
                     />
 
                     <LastConverted
@@ -94,17 +100,18 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     // why it was not accessible through state.currencies.baseCurrency 
-    const baseCurrency = state.baseCurrency;
-    const quoteCurrency = state.quoteCurrency;
-    const conversionSelector = state.conversions[baseCurrency] || {};
+    const baseCurrency = state.currencies.baseCurrency;
+    const quoteCurrency = state.currencies.quoteCurrency;
+    const conversionSelector = state.currencies.conversions[baseCurrency] || {};
     const rates = conversionSelector.rates || {};
     return {
         baseCurrency,
         quoteCurrency,
-        amount: state.amount,
+        amount: state.currencies.amount,
         rate: rates[quoteCurrency] || 0,
         isFetching: conversionSelector.isFetching,
         lastConvertedDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date(),
+        primaryColor: state.theme.primaryColor,
     };
 };
 

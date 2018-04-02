@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {View, Text, Image, ImageBackground, Keyboard, Animated, Platform } from 'react-native';
 
 import styles from './styles';
@@ -6,6 +7,10 @@ import styles from './styles';
 const ANIMATION_DURATION = 250;
 
 class Logo extends React.Component {
+
+    static propTypes = {
+        tintColor: PropTypes.string,
+    };
 
     constructor(props) {
         super(props);
@@ -75,9 +80,10 @@ class Logo extends React.Component {
             { width: this.containerImageWidth, height: this.containerImageWidth },
         ];
 
-        const imageStyle = [
+        const imageStyles = [
             styles.image,
             { width: this.imageWidth },
+            this.props.tintColor ? {tintColor: this.props.tintColor} : null,
         ];
 
         return (
@@ -87,7 +93,7 @@ class Logo extends React.Component {
                     - Use containerImageWidth instead of styles.containerImage
                 */}
                 <ImageBackground resizeMode="contain" style={styles.containerImage} source={require('./images/background.png')}>
-                    <Animated.Image resizeMode="contain" style={imageStyle} source={require('./images/logo.png')}/>
+                    <Animated.Image resizeMode="contain" style={imageStyles} source={require('./images/logo.png')}/>
                 </ImageBackground>
                 <Text style={styles.text}>Currency Converter</Text>
             </View>
